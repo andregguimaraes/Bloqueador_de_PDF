@@ -11,11 +11,12 @@ class EncryptPDF():
 
     def Criptografa(self, caminho_pdf: str, senha: str) -> bool:
         pasta_log = os.path.dirname(caminho_pdf)
+        nome_arquivo = os.path.basename(caminho_pdf)
         hora = datetime.today().strftime('%H%M%S')
         pasta = pasta_log + "\\" + 'LOG'
         if not os.path.exists(pasta):
             os.mkdir(pasta)
-        pasta_log = os.path.join(pasta, 'log{}.csv'.format(
+        pasta_log = os.path.join(pasta, 'log{}{}.csv'.format(nome_arquivo,
             ''.join(c for c in hora if c.isdigit())))
         open(pasta_log, "x")
 

@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args"   : ["-C","E:\\André\\Docmentos\\ativ_mat1.pdf","-S", "andre123"]
+            "args"   : ["-C","E:\\andre\\Documents\\Coletanea_Exercicios_Matematica_Basica.pdf","-S", "andre123"]
         }
     ]
 }
