@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args"   : ["-C","E:\\andre\\Documents\\Coletanea_Exercicios_Matematica_Basica.pdf","-S", "andre123"]
+            "args"   : ["-D","E:\\andre\\Documents\\Coletanea_Exercicios_Matematica_Basica.pdf","-S", "andre123"]
         }
     ]
 }

@@ -1,8 +1,5 @@
 import PyPDF2
-import logging
-import os
-from datetime import datetime
-
+import sys
 
 class EncryptPDF():
 
@@ -10,42 +7,31 @@ class EncryptPDF():
         pass
 
     def Criptografa(self, caminho_pdf: str, senha: str) -> bool:
-        pasta_log = os.path.dirname(caminho_pdf)
-        nome_arquivo = os.path.basename(caminho_pdf)
-        hora = datetime.today().strftime('%H%M%S')
-        pasta = pasta_log + "\\" + 'LOG'
-        if not os.path.exists(pasta):
-            os.mkdir(pasta)
-        pasta_log = os.path.join(pasta, 'log{}{}.csv'.format(nome_arquivo,
-            ''.join(c for c in hora if c.isdigit())))
-        open(pasta_log, "x")
-
-        logging.basicConfig(filename=pasta_log,
-                            encoding='utf-8', level='INFO')
-
-        logging.info('Iniciando o processo...')
-
         try:
+            print('Iniciando processo...')
             arquivo_pdf = open(caminho_pdf, 'rb')
             caminho_pdf_criptografado: str = caminho_pdf.replace(
                 '.pdf', '_criptografado.pdf')
+            
             inputpdf = PyPDF2.PdfFileReader(arquivo_pdf)
+            
             numero_paginas = inputpdf.numPages
+            
             outputStream = open(caminho_pdf_criptografado, "wb")
+            
             output = PyPDF2.PdfFileWriter()
 
             for i in range(numero_paginas):
                 output.addPage(inputpdf.getPage(i))
-                logging.info('Escrevendo novo arquivo, página ' + str(i))
-
+                
             output.encrypt(senha)
             output.write(outputStream)
         except Exception as e:
-            logging.error(
-                'Ocorreu um erro ao tentar criptografar o arquivo, consulte o log para mais informações')
-            logging.error(e)
+            print('Ocorreu um erro ao tentar criptografar o arquivo com senha.')
+            print(e)
+            sys.exit(1)
         finally:
             arquivo_pdf.close()
             outputStream.close()
-            logging.info('Novo arquivo salvo no diretório:' +
-                         caminho_pdf_criptografado)
+            print('Processo concluído com sucesso.')
+            sys.exit(0)
